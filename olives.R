@@ -1,6 +1,7 @@
 setwd("~github/oil")
 year <- c(2021,2021)
-date <- as.Date(c("10-12","10-26"),format=("%m-%d")) #data in formato mese-giorno
+dates <- c("10-12","10-26")
+date <- as.Date(dates,format="%m-%d") #data in formato mese-giorno
 olives_sp <- c(100,0) #olive di San Placido (kg)
 olives_f <- c(70,115) #olive di Foddiri
 production <- c(27.8,19.2) #olio in kg
@@ -9,9 +10,12 @@ cost <- c(.21,.21) #Euro cent per chilo di olive
 iva <- c(.04,.04)
 oil <- data.frame(year,date,olives_sp,olives_f,production,volume,cost,iva)
 oil <- transform(oil,
-                 return=round(production/(olives_sp+olives_f),digit=3),
+                 oil_return=round(production/(olives_sp+olives_f),digit=3),
                  prod_litre=round(production*volume,digit=1),
                  tot_cost=round((olives_sp+olives_f)*cost*(1+iva))) #add oil in litres and total cost per date
+
+oil_table <- data.frame(format(as.Date(oil$date,format="%y-%m-%d"),"%d/%m/%Y"),paste(oil$olives_sp+oil$olives_f," Kg"),paste(oil$production," Kg"),paste(oil$oil_return*100," %"),paste(oil$prod_litre," Lt"),paste("EUR ",oil$tot_cost))
+colnames(oil_table) <- c("Data","Raccolto","Olio prodotto (Kg)","Resa","Olio prodotto (Lt)","Costo")
 
 par(mfrow=c(1,2),mai=c(1,.4,1,.4))
 barplot(cbind(oil$olives_sp,oil$olives_f)~oil$date,beside=TRUE,ylim=c(0,150),col=c("green","#FF8000"),xaxt="n",xlab="",ylab="Kg",main="Olive raccolte (Kg)")
