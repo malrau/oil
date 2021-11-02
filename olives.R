@@ -12,8 +12,13 @@ oil <- transform(oil,
                  return=round(production/(olives_sp+olives_f),digit=3),
                  prod_litre=round(production*volume,digit=1),
                  tot_cost=round((olives_sp+olives_f)*cost*(1+iva))) #add oil in litres and total cost per date
-barplot(cbind(oil$olives_sp,oil$olives_f)~oil$date,beside=TRUE,ylim=c(0,150),col=c("green","orange"),xaxt="n",xlab="",ylab="Kg",main="Olive raccolte (Kg)")
+
+par(mfrow=c(1,2),mai=c(1,.4,1,.4))
+barplot(cbind(oil$olives_sp,oil$olives_f)~oil$date,beside=TRUE,ylim=c(0,150),col=c("green","#FF8000"),xaxt="n",xlab="",ylab="Kg",main="Olive raccolte (Kg)")
 axis(1,at=c(2,5),labels=oil$date)
-legend(1,140,c("San Placido","Foddiri"),fill=c("green","orange"))
+legend(1,140,c("San Placido","Foddiri"),fill=c("green","#FF8000"),cex=.85)
+
+barplot(cbind(sum(oil$olives_sp),sum(oil$olives_f)),beside=TRUE,space=c(1,.4),ylim=c(0,200),col=c("green","#FF8000"))
+legend(.4,185,c("San Placido","Foddiri"),fill=c("green","#FF8000"),cex=.85)
 
         
