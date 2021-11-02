@@ -18,11 +18,12 @@ oil_table <- data.frame(format(as.Date(oil$date,format="%y-%m-%d"),"%d/%m/%Y"),p
 colnames(oil_table) <- c("Data","Raccolto","Olio prodotto (Kg)","Resa","Olio prodotto (Lt)","Costo")
 
 par(mfrow=c(1,2),mai=c(1,.4,1,.4))
-barplot(cbind(oil$olives_sp,oil$olives_f)~oil$date,beside=TRUE,ylim=c(0,150),col=c("green","#FF8000"),xaxt="n",xlab="",ylab="Kg",main="Olive raccolte (Kg)")
+oil_plot <- barplot(cbind(oil$olives_sp,oil$olives_f)~oil$date,beside=TRUE,ylim=c(0,150),col=c("#00A600","#EAB64E"),xaxt="n",xlab="",ylab="Kg",main="Olive raccolte (Kg)")
 axis(1,at=c(2,5),labels=oil$date)
-legend(1,140,c("San Placido","Foddiri"),fill=c("green","#FF8000"),cex=.85)
+text(x=t(oil_plot),y=cbind(oil$olives_sp,oil$olives_f),labels=cbind(paste(c(oil$olives_sp,oil$olives_f)," Kg")),pos=3,cex=.8) #note that I transpose the plot coordinates (t(oil_plot)), for the bar labels to be correct (they would be mixed up, otherwise)
+legend(1,140,c("San Placido","Foddiri"),fill=c("#00A600","#EAB64E"),cex=.85)
 
-barplot(cbind(sum(oil$olives_sp),sum(oil$olives_f)),beside=TRUE,space=c(1,.4),ylim=c(0,200),col=c("green","#FF8000"))
-legend(.4,185,c("San Placido","Foddiri"),fill=c("green","#FF8000"),cex=.85)
-
-        
+oil_plot2 <- barplot(cbind(sum(oil$olives_sp),sum(oil$olives_f)),beside=TRUE,space=c(1,.4),ylim=c(0,200),col=c("#00A600","#EAB64E"))
+axis(1,at=oil_plot2,labels=c("San Placido","Foddiri"))
+text(x=oil_plot2,y=cbind(sum(oil$olives_sp),sum(oil$olives_f)),labels=paste(cbind(sum(oil$olives_sp),sum(oil$olives_f))," Kg"),pos=3,cex=.9)
+#legend(.4,185,c("San Placido","Foddiri"),fill=c("#00A600","#EAB64E"),cex=.85)
