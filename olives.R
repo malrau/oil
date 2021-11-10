@@ -28,7 +28,7 @@ oil_table <- data.frame(format(as.Date(oil$date,format="%y-%m-%d"),"%d/%m/%Y"),
                         ifelse(is.na(oil$tot_cost)==TRUE,"",paste("EUR ",round(oil$tot_cost/oil$prod_litre,digit=2))))
 colnames(oil_table) <- c("Data","Raccolto","Olio prodotto (Kg)","Resa",
                          "Olio prodotto (Lt)","Costo","Costo per litro")
-knitr::kable(oil_table)
+knitr::kable(oil_table,caption="Le olive raccolte il 6 novembre non sono state portate al frantoio, ma consegnate a Mimmo. Le ha portate lui, per la spremitura.")
 
 
 #####BARPLOTS#####
