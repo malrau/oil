@@ -52,12 +52,13 @@ text(x=t(oil_plot),y=olives,
 legend(1,180,c("San Placido","Foddiri"),fill=c("#00A600","#EAB64E"),cex=.85)
 
 ###2###
-oil_plot2 <- barplot(colSums(olives),
-                     beside=TRUE,space=c(1,.4),ylim=c(0,250),col=c("#00A600","#EAB64E"),
-                     main="Olive raccolte per campagna (Kg)")
-axis(1,at=oil_plot2,labels=c("San Placido","Foddiri"))
-text(x=oil_plot2,y=colSums(olives),labels=paste(colSums(olives)," Kg"),pos=3,cex=.9)
-#legend(.4,185,c("San Placido","Foddiri"),fill=c("#00A600","#EAB64E"),cex=.85)
+oil_plot2 <- barplot(c(colSums(olives),sum(colSums(olives))),
+                     beside=TRUE,ylim=c(0,360),col=c("#80C904","#EAB64E","#378805"),
+                     xaxt="n",xlab="",main="Olive raccolte per campagna (Kg)")
+axis(1,at=oil_plot2,labels=c("San Placido","Foddiri","Totale"))
+text(x=oil_plot2,y=c(colSums(olives),sum(colSums(olives))),
+     labels=paste(c(colSums(olives),sum(colSums(olives)))," Kg"),pos=3,cex=.9)
+#legend(.4,185,c("San Placido","Foddiri","Totale"),fill=c("#80C904","#EAB64E","#378805"),cex=.85)
 
 ###3###
 product_matrix <- cbind(rowSums(olives),production) #I put olives harvested by date and oil produced (in chilos) in a matrix
@@ -69,5 +70,4 @@ axis(1,at=c(2,5,8),labels=oil$date)
 text(x=product_plot,y=t(product_matrix),
      labels=paste(t(product_matrix)," Kg"),pos=3)
 legend(x=3.5,y=190,c("Olive","Olio"),fill=c("#ABC32F","#207567"),cex=.85)
-
 
